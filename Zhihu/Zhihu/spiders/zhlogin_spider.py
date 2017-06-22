@@ -17,14 +17,15 @@ class ZhloginSpider(scrapy.Spider):
         return [scrapy.Request('http://www.zhihu.com/#signin', callback=self.login)]
 
     def login(self, response):
-        print '-------'  # 便于测试
+        print '----------start login------------------------'  # 便于测试
         _xsrf = response.xpath(".//*[@id='sign-form-1']/input[2]/@value").extract()[0]
         print _xsrf
+        print '----------formrequest------------------------'
         return [scrapy.FormRequest(
             url='http://www.zhihu.com/login/email',  # 这是post的真实地址
             formdata={
                 '_xsrf': _xsrf,
-                'email': '18910714617',  # email
+                'account': '18910714617',  # account
                 'password': '',  # password
                 'remember_me': 'true',
             },
@@ -33,6 +34,7 @@ class ZhloginSpider(scrapy.Spider):
         )]
 
     def check_login(self, response):
+        print '----------check login------------------------'
         if json.loads(response.body)['r'] == 0:
             yield scrapy.Request(
                 'http://www.zhihu.com',
@@ -42,6 +44,7 @@ class ZhloginSpider(scrapy.Spider):
             )
 
     def page_content(self, response):
-        with open('first_page.html', 'wb') as f:
+        print '----------page content------------------------'
+        with open('./first_page.html', 'wb') as f:
             f.write(response.body)
         print 'done'
