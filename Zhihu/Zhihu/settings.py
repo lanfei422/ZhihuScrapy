@@ -15,7 +15,7 @@ SPIDER_MODULES = ['Zhihu.spiders']
 NEWSPIDER_MODULE = 'Zhihu.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-# USER_AGENT = 'Zhihu (+http://www.yourdomain.com)'
+USER_AGENT = 'Zhihu (+http://www.zhihu.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
